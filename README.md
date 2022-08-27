@@ -74,3 +74,20 @@ docker exec -it mysql_master bash
 ```
 docker exec -it mysql_slave bash
 ```
+
+#### Container fails to start with Permission issue
+
+If container's fails with the following error:
+
+```
+2022-08-27T16:15:48.958955Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+mysqld: File '/var/log/mysql/mysql-bin.index' not found (Errcode: 13 - Permission denied)
+2022-08-27T16:15:48.965048Z 0 [ERROR] Aborting
+```
+
+We need to change the permission of the logs folder in both master and slave by executing this command in the project work directory
+
+```
+$ chmod 777 master/logs
+$ chmod 777 slave/logs
+```
